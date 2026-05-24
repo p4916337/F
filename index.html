@@ -246,7 +246,7 @@
 
     <!-- 红色通知栏 -->
     <div class="notice-bar">
-        📢 新公司开业,在本链接抽取红包联系嗨信1555551!  嗨信 <a herf="https://www.wwhy.top">点击下载</a>
+        📢 新公司开业,在本链接抽取红包联系嗨信1555551!  嗨信 <a href="https://www.wwhy.top" target="_blank">点击下载</a>
     </div>
 
     <!-- 标签栏 -->
@@ -266,7 +266,7 @@
     <div class="game-list">
 
         <!-- 第一个-->
-        <div class="game-item"  onclick="window.location.href='https://baidu.com';">
+        <div class="game-item" onclick="openInNewTab(1)">
             <div class="game-icon">
                 <img src="https://img.cdn1.vip/i/6a12e968ad54d_1779624296.webp" alt="聚鑫汇">
             </div>
@@ -276,7 +276,7 @@
           <!-- 第一个结束-->
         
          <!-- 第二个-->
-        <div class="game-item"  onclick="window.location.href='https://google.com';">
+        <div class="game-item" onclick="openInNewTab(2)">
             <div class="game-icon">
                 <img src="https://img.cdn1.vip/i/6a12e961c1f37_1779624289.jpg" alt="传奇国际">
             </div>
@@ -286,7 +286,7 @@
        <!-- 第二个结束-->
 
          <!-- 第三个-->
-          <div class="game-item"  onclick="window.location.href='https://qq.com';">
+          <div class="game-item"  onclick="openInNewTab(3)">
             <div class="game-icon">
                 <img src="https://img.cdn1.vip/i/6a12e95f90f5a_1779624287.webp" alt="戴高乐">
             </div>
@@ -320,6 +320,23 @@
     </div> -->
 
     <script>
+
+function openInNewTab(id) {
+        if(id==1){
+              window.open('https://www.qq.com', '_blank');
+        }
+       if(id==2){
+              window.open('https://www.baidu.com', '_blank');
+        }
+       if(id==3){
+              window.open('https://www.google.com', '_blank');
+        }
+  
+}
+
+        
+
+        
         // 简单的标签切换逻辑
         const tabHot = document.querySelector('.tab-hot');
         const tabSoftware = document.querySelector('.tab-software');
