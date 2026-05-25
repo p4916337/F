@@ -288,17 +288,25 @@
          <!-- 第三个-->
           <div class="game-item"  onclick="openInNewTab(3)">
             <div class="game-icon">
-                <img src="https://img.cdn1.vip/i/6a12e95f90f5a_1779624287.webp" alt="">
+                <img src="https://img.cdn1.vip/i/6a12e95f90f5a_1779624287.webp" alt="戴高乐">
             </div>
             <div class="game-name">戴高乐</div>
             <div class="game-desc"> 新人大水台 注册送58 首存100+88扶持 充值1000反588   </div>
         </div>
      <!-- 第三个结束-->
-
-
-
-
         
+   <!-- 第四个-->
+          <div class="game-item"  onclick="openInNewTab(4)">
+            <div class="game-icon">
+                <img src="https://img.cdn1.vip/i/6a14646427c70_1779721316.webp" alt="龙腾国际">
+            </div>
+            <div class="game-name">龙腾国际</div>
+            <div class="game-desc"> 新人大水台 注册送58 首存100+88扶持 充值1000反588 </div>
+        </div>
+     <!-- 第四个结束-->
+
+
+     
     </div>
 <!--
     <div class="footer-nav">
@@ -338,9 +346,11 @@ function openInNewTab(id) {
               window.open('https://www.google.com', '_blank');
         }
    
-    
-  
-}
+     if(id==4){
+              window.open('https://www.wwhy.top', '_blank');
+        }
+  }
+
 
         
 
