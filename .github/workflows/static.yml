@@ -1,34 +1,36 @@
-name: Deploy static content to Pages
+name: Example Workflow # 工作流的名称,如果省略，则使用当前文件名
 
-on:
-  workflow_dispatch: workflow_dispatch
+run-name: Deploy by @${{ github.actor }} # 从工作流生成的工作流运行的名称，如果省略，则使用提交时的commit信息
+
+on: # 触发工作流的事件
   push:
-    branches: ["main"]  # 触发条件：当推送到 main 分支时
+    branches: [ main ] # 当推送至 main 分支时触发
+  pull_request:
+    branches: [ main ] # 当创建针对 main 分支的拉取请求时触发
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest  # 使用最新的 Ubuntu 运行环境
-    permissions:
-      pages: write       # 授予 Pages 权限
-      id-token: write    # 授予写入 ID Token 的权限
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}  # 设置环境变量，包含部署后的页面 URL
-    steps:
-      - name: Checkout your repository using git
-        uses: actions/checkout@v2  # 使用 actions/checkout@v2 动作来检出代码
+jobs: # 定义工作流中的作业
+  build: # 作业的名称
+    runs-on: ubuntu-latest # 指定运行环境
+	# 每个任务下的运行步骤，短横杠 - 表示一个步骤，从上至下依次执行。
+    steps: # 作业中的步骤
+      - name: Checkout code # 检出代码
+        uses: actions/checkout@v3 # 一般直接使用别人预先设置好的Actions 如使用actions/checkout@v3
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v1  # 设置 GitHub Pages 环境
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          static_site_generator: false  # 因为是静态内容，不使用静态站点生成器
-          token: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub Token
+          python-version: '3.9' # 设置 Python 版本
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1  # 上传页面工件
-        with:
-          path: '.'  # 上传当前目录下的所有文件（你的静态内容）
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt # 安装依赖项
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1  # 部署到 GitHub Pages
+      - name: Run tests
+        run: |
+          python test.py # 运行测试脚本
+
+      - name: Deploy
+        if: success() # 如果所有先前的步骤成功，则执行部署
+        run: |
+          echo "Deploying to production..." # 部署到生产环境
