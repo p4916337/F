@@ -1,35 +1,33 @@
-name: Auto Deploy
+name: Deploy Static HTML to GitHub Pages
 
-run-name: Deploy by @${{ github.actor }}
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
+  workflow_dispatch:  # 允许手动触发
 
 jobs:
-  build-and-deploy:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload static files
+        uses: actions/upload-pages-artifact@v3
         with:
-          fetch-depth: 0
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 16
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build
-        run: npm run build
+          path: '.'  # 部署根目录下的所有 HTML/CSS/JS 文件
 
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: docs/.vuepress/dist
-          branch: gh-pages
+        id: deployment
+        uses: actions/deploy-pages@v4
