@@ -1,43 +1,33 @@
-# Simple workflow for deploying static content to GitHub Pages
 name: Deploy static content to Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+    branches: ["main"]  # 触发条件：当推送到 main 分支时
 
 jobs:
-  # Single deploy job since we're just deploying
   deploy:
+    runs-on: ubuntu-latest  # 使用最新的 Ubuntu 运行环境
+    permissions:
+      pages: write       # 授予 Pages 权限
+      id-token: write    # 授予写入 ID Token 的权限
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+      url: ${{ steps.deployment.outputs.page_url }}  # 设置环境变量，包含部署后的页面 URL
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Checkout your repository using git
+        uses: actions/checkout@v2  # 使用 actions/checkout@v2 动作来检出代码
+
       - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/configure-pages@v1  # 设置 GitHub Pages 环境
         with:
-          # Upload entire repository
-          path: '.'
+          static_site_generator: false  # 因为是静态内容，不使用静态站点生成器
+          token: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub Token
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1  # 上传页面工件
+        with:
+          path: '.'  # 上传当前目录下的所有文件（你的静态内容）
+
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@v1  # 部署到 GitHub Pages
