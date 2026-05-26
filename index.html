@@ -306,25 +306,7 @@
      <!-- 第四个结束-->
 
 
-       <!-- 第五个-->
-          <div class="game-item"  onclick="openInNewTab(5)">
-            <div class="game-icon">
-                <img src="https://img.cdn1.vip/i/6a154109db6da_1779777801.webp" alt="PG模拟器">
-            </div>
-            <div class="game-name">PG模拟器</div>
-            <div class="game-desc">PG模拟器 点击立即玩 </div>
-        </div>
-     <!-- 第五个结束-->
-
-        <!-- 第六个-->
-          <div class="game-item"  onclick="openInNewTab(6)">
-            <div class="game-icon">
-                <img src="https://img.cdn1.vip/i/6a1542cc0687d_1779778252.webp" alt="深夜福利">
-            </div>
-            <div class="game-name">深夜福利</div>
-            <div class="game-desc">看片黄网内的任何广告都不要相信</div>
-        </div>
-     <!-- 第六个结束-->
+       
         
     </div>
 <!--
@@ -388,7 +370,7 @@ function openInNewTab(id) {
         tabSoftware.addEventListener('click', function() {
             tabHot.classList.remove('active');
             tabSoftware.classList.add('active');
-            gameList.innerHTML = '<div style="grid-column: 1 / 3; padding: 20px; text-align: center; color: #666;">暂无实用软件数据</div>';
+            gameList.innerHTML = '<!-- 第五个-->          <div class="game-item"  onclick="openInNewTab(5)">            <div class="game-icon">                <img src="https://img.cdn1.vip/i/6a154109db6da_1779777801.webp" alt="PG模拟器">            </div>            <div class="game-name">PG模拟器</div>            <div class="game-desc">PG模拟器 点击立即玩 </div>        </div>     <!-- 第五个结束-->        <!-- 第六个-->          <div class="game-item"  onclick="openInNewTab(6)">            <div class="game-icon">                <img src="https://img.cdn1.vip/i/6a1542cc0687d_1779778252.webp" alt="深夜福利">            </div>            <div class="game-name">深夜福利</div>            <div class="game-desc">看片黄网内的任何广告都不要相信</div>        </div>     <!-- 第六个结束-->';
         });
 
         tabHot.addEventListener('click', function() {
