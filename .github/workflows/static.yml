@@ -1,45 +1,36 @@
-# 工作流名称
 name: Auto Deploy
 
-# 运行名称
 run-name: Deploy by @${{ github.actor }}
 
-# 触发条件：push 到 main 分支
 on:
   push:
     branches:
       - main
 
-# 执行任务
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      # 1. 拉取代码
       - name: Clone Code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # 2. 安装 Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 16
           cache: 'npm'
 
-      # 3. 安装依赖
       - name: Install dependencies
         run: npm install
 
-      # 4. 构建 VuePress
       - name: Build VuePress
         run: npm run build
 
-      # 5. 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: docs/.vuepress/dist   # VuePress 构建输出目录
-          branch: gh-pages              # 【正确】部署到 gh-pages 分支
-          clean: true                   # 清理旧文件
+          folder: docs/.vuepress/dist
+          branch: gh-pages
+          clean: true
